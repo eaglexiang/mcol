@@ -2,6 +2,12 @@
 
 easy to to search mongo col
 
+## install
+
+```shell
+go get github.com/eaglexiang/mcol
+```
+
 ## config
 
 create or edit `$HOME/.mcol.confg` with JSON.
