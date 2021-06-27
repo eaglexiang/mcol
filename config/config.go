@@ -3,7 +3,9 @@ package config
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 
+	"github.com/eaglexiang/mcol/env"
 	"github.com/pkg/errors"
 )
 
@@ -18,9 +20,25 @@ type Config struct {
 // C 全局配置
 var C Config
 
+func getFilename() (fn string, err error) {
+	home, err := env.Home()
+	if err != nil {
+		return
+	}
+
+	fn = filepath.Join(home, ".mcol.config")
+
+	return
+}
+
 // Load 加载配置
 func Load() (err error) {
-	buf, err := os.ReadFile("mcol.config")
+	fn, err := getFilename()
+	if err != nil {
+		return
+	}
+
+	buf, err := os.ReadFile(fn)
 	if err != nil {
 		err = errors.WithStack(err)
 		return

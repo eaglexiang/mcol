@@ -3,13 +3,24 @@ package cache
 import (
 	"encoding/json"
 	"os"
+	"path/filepath"
 	"sort"
 	"strings"
 
+	"github.com/eaglexiang/mcol/env"
 	"github.com/pkg/errors"
 )
 
-const filename = "mcol.cache"
+func getFilename() (fn string, err error) {
+	home, err := env.Home()
+	if err != nil {
+		return
+	}
+
+	fn = filepath.Join(home, ".mcol.cache")
+
+	return
+}
 
 var cache = make(map[string][]string) // map[db_name] [col_name]
 
@@ -56,6 +67,11 @@ func (m Matched) Fmt() (fmt string, args []interface{}) {
 
 // Load 加载缓存
 func Load() (err error) {
+	filename, err := getFilename()
+	if err != nil {
+		return
+	}
+
 	buf, err := os.ReadFile(filename)
 	if err != nil {
 		err = errors.WithMessage(err, filename)
@@ -79,6 +95,11 @@ func Save(c map[string][]string) (err error) {
 	buf, err := json.MarshalIndent(cache, "", "    ")
 	if err != nil {
 		err = errors.WithStack(err)
+		return
+	}
+
+	filename, err := getFilename()
+	if err != nil {
 		return
 	}
 
