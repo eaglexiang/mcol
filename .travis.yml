@@ -1,0 +1,10 @@
+language: go
+
+go:
+- 1.16
+
+git:
+  submodules: false
+
+script:
+- go build

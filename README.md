@@ -1,5 +1,10 @@
 # mcol
 
+![language](https://img.shields.io/badge/language-go-blue.svg)
+![build](https://travis-ci.org/eaglexiang/mcol.svg?branch=master)
+[![codebeat badge](https://codebeat.co/badges/b4703e04-0239-4c04-86fd-d4a4623e5470)](https://codebeat.co/projects/github-com-eaglexiang-mcol-master)
+![license](https://img.shields.io/badge/license-MIT-black.svg)
+
 easy to to search mongo col
 
 ## install
