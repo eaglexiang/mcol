@@ -1,8 +1,9 @@
 # mcol
 
-![language](https://img.shields.io/badge/language-go-blue.svg)
+[![GoDoc](https://godoc.org/github.com/eaglexiang/mcol?status.svg)](https://godoc.org/github.com/eaglexiang/mcol)
 ![build](https://api.travis-ci.com/eaglexiang/mcol.svg?branch=master)
 [![codebeat badge](https://codebeat.co/badges/b4703e04-0239-4c04-86fd-d4a4623e5470)](https://codebeat.co/projects/github-com-eaglexiang-mcol-master)
+[![Go Report Card](https://goreportcard.com/badge/github.com/eaglexiang/mcol)](https://goreportcard.com/report/github.com/eaglexiang/mcol)
 ![license](https://img.shields.io/badge/license-MIT-black.svg)
 
 easy to to search mongo col
