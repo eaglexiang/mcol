@@ -16,17 +16,13 @@ go get github.com/eaglexiang/mcol
 
 ## config
 
-create or edit `$HOME/.mcol.confg` with JSON.
+edit `$HOME/.mcol.confg` with JSON.
 
-sample:
+run command:
 
-```json
-{
-    "addr": "127.0.0.1:27017",
-    "db": "admin",
-    "username": "admin",
-    "password": "123456"
-}
+```shell
+mcol --config
+
 ```
 
 ## init cache
