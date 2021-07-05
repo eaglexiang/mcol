@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 	"path/filepath"
 
@@ -20,6 +21,7 @@ type Config struct {
 // C 全局配置
 var C Config
 
+// getFilename 获取配置文件的路径
 func getFilename() (fn string, err error) {
 	home, err := env.Home()
 	if err != nil {
@@ -51,4 +53,34 @@ func Load() (err error) {
 	}
 
 	return
+}
+
+// Try2InitFile 初始化配置文件
+func Try2InitFile(defaultConfig []byte) (filename string, err error) {
+	filename, err = getFilename()
+	if err != nil {
+		return
+	}
+
+	ok := existConfigFile(filename)
+	if ok {
+		return
+	}
+
+	log.Println("初始化配置文件")
+	err = os.WriteFile(filename, defaultConfig, os.FileMode(0x777))
+	if err != nil {
+		err = errors.WithStack(err)
+		return
+	}
+
+	return
+}
+
+func existConfigFile(filename string) (ok bool) {
+	_, err := os.Stat(filename)
+	if err != nil {
+		return os.IsExist(err)
+	}
+	return true
 }
