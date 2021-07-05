@@ -69,18 +69,31 @@ func editConfig() (err error) {
 	if err != nil {
 		return
 	}
-
 	fmt.Println("文件路径: ", filename)
-	editor := env.DefaultEditor()
+
+	editor := getEditor()
+
+	err = runEditor(editor, filename)
+
+	return
+}
+
+func getEditor() (editor string) {
+	editor = env.DefaultEditor()
 	fmt.Printf("请输入编辑器命令(默认: %s): ", editor)
 	fmt.Scanf("%s", &editor)
+	return
+}
 
+func runEditor(editor string, filename string) (err error) {
 	cmd := exec.Command(editor, filename)
+
 	err = cmd.Start()
 	if err != nil {
 		err = errors.WithStack(err)
 		return
 	}
+
 	err = cmd.Wait()
 	if err != nil {
 		err = errors.WithStack(err)
