@@ -25,25 +25,15 @@ func main() {
 		return
 	}
 
-	if os.Args[1] == "--cache" {
-		log.Println("start to cache")
-		err := createCache(ctx)
-		if err != nil {
-			log.Printf("%+v", err)
-		}
-		return
+	var err error
+	switch os.Args[1] {
+	case "--cache":
+		err = createCache(ctx)
+	case "--config":
+		err = editConfig()
+	default:
+		err = cache.Load()
 	}
-
-	if os.Args[1] == "--config" {
-		log.Println("start to config")
-		err := editConfig()
-		if err != nil {
-			log.Printf("%+v", err)
-		}
-		return
-	}
-
-	err := cache.Load()
 	if err != nil {
 		log.Printf("%+v", err)
 		return
