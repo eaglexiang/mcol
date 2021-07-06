@@ -86,15 +86,14 @@ func getEditor() (editor string) {
 }
 
 func runEditor(editor string, filename string) (err error) {
+	fmt.Printf("%s %s\n", editor, filename)
+
 	cmd := exec.Command(editor, filename)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	cmd.Stdin = os.Stdin
 
-	err = cmd.Start()
-	if err != nil {
-		err = errors.WithStack(err)
-		return
-	}
-
-	err = cmd.Wait()
+	err = cmd.Run()
 	if err != nil {
 		err = errors.WithStack(err)
 		return
