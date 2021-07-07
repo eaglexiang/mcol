@@ -22,10 +22,15 @@ type Config struct {
 var C Config
 
 // getFilename 获取配置文件的路径
-func getFilename() (fn string, err error) {
-	home, err := env.Home()
-	if err != nil {
-		return
+func getFilename(dir ...string) (fn string, err error) {
+	var home string
+	if len(dir) > 0 {
+		home = dir[0]
+	} else {
+		home, err = env.Home()
+		if err != nil {
+			return
+		}
 	}
 
 	fn = filepath.Join(home, ".mcol.config")
@@ -34,8 +39,8 @@ func getFilename() (fn string, err error) {
 }
 
 // Load 加载配置
-func Load() (err error) {
-	fn, err := getFilename()
+func Load(dir ...string) (err error) {
+	fn, err := getFilename(dir...)
 	if err != nil {
 		return
 	}
